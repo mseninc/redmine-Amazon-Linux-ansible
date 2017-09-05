@@ -20,7 +20,7 @@
 - name: ImageMagickとヘッダファイル・日本語フォントのインストール
   become: yes
   yum:
-    name='ImageMagick,ImageMagick-devel,ipa-pgothic-fonts'
+    name='ImageMagick,ImageMagick-devel,ipa-gothic-fonts.noarch'
 
 - name: そのほかのツールのインストール
   become: yes
