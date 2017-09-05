@@ -17,7 +17,7 @@ redmine_dir_group: apache
 redmine_font_path: /usr/share/fonts/truetype/takao-gothic/TakaoPGothic.ttf
 
 # pg_hba.confのパス
-pg_hba_conf_path: /var/lib/pgsql/data/pg_hba.conf
+pg_hba_conf_path: /var/lib/pgsql9/data/pg_hba.conf
 
 # ダウンロードするRubyのソースコード
 ruby_url_dir: https://cache.ruby-lang.org/pub/ruby/2.4
