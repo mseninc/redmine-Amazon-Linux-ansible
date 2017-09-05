@@ -10,7 +10,7 @@
 - name:  PostgreSQLとヘッダファイルのインストール
   become: yes
   yum:
-    name='postgresql-server,postgresql-devel,python-psycopg2'
+    name='postgresql-server,postgresql-devel,python27-psycopg2.x86_64'
 
 - name: Apacheとヘッダファイルのインストール
   become: yes
