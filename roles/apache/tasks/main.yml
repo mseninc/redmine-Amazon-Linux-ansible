@@ -46,6 +46,13 @@
     src=redmine.conf
     dest=/etc/httpd/conf.d/redmine.conf
 
+- name: アクセス制限の変更
+  become: yes
+  lineinfile:
+   dest=/etc/httpd/conf.d/redmine.conf
+   regexp='Require all granted'
+   line=' Allow from all'
+
 - name: httpdの再起動
   become: yes
   service:
