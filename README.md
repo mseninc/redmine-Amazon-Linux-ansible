@@ -1,65 +1,76 @@
-# redmine-centos-ansible
+# redmine-amazon-linux-ansible
 
+Ansibleを使ってAmazon Linux にRedmineを構築するプレイブックです。
 
-最小構成でインストールしたCentOSにRedmineを自動インストールするためのAnsibleプレイブックです。
+以下のCentOS用のプレイブックを参考に、Amazon Linux用へモディファイしました。
+[redmine-centos-ansible](https://github.com/farend/redmine-centos-ansible)
 
-コマンド5個実行するだけで、あとはしばらく放置すればインストールが完了します。
+CenOS用のプレイブックを作ってくださった、ファーエンドテクノロジー株式会社さんに感謝いたします。
 
+## 想定環境
+　
+AWSのEC2に作成されたAmazon Linuxを対象とし、すでにインスタンスの作成が完了していることを想定しています。
 
-## 概要
+## インストール手順
 
-Ansibleを使ってRedmineを自動インストールするためのプレイブックです。以下のwebサイトで紹介されている手順におおむね準拠しています。
+rootユーザーに昇格し、以下の手順を実行します。
 
-[Redmine 3.4をCentOS 7.3にインストールする手順](http://blog.redmine.jp/articles/3_4/install/centos/)
+### スワップ設定
 
+t2.microでインスタンスを作成した場合は、メモリが1GBと多くありません。
 
-## システム構成
+インストール中に止まってしまうこともあるので、スワップを設定します。
 
-* Redmine 3.4
-* CentOS 7.3
-* PostgreSQL
-* Apache
-
-
-## Redmineのインストール手順
-
-インストール直後の CentOS 7.3 に root でログインし以下の操作を行ってください。
-
-
-### Ansibleとgitのインストール
+お使いの環境にあわせて実施してください。
 
 ```
-yum install -y epel-release
-yum install -y ansible git
+ # dd if=/dev/zero of=/swap bs=1M count=1024
+ # chmod 600 /swap
+ # mkswap /swap
+ # swapon /swap
+```
+
+### pip、Ansibleのインストール
+
+```
+ # easy_install pip
+ # pip install ansible
+```
+
+### EPELとGitのインストール
+
+```
+ # yum -y install epel-release
+ # yum -y install git
 ```
 
 ### playbookのダウンロード
 
 ```
-git clone https://github.com/farend/redmine-centos-ansible.git
+ git clone https://github.com/mseninc/redmine-amazon-linux-ansible.git
 ```
 
 ### PostgreSQLに設定するパスワードの変更
 
-ダウンロードしたプレイブック内のファイル `group_vars/redmine-servers` をエディタで開き、 `db_passwd_redmine` を適当な内容に変更してください。これはPostgreSQLのRedmine用ユーザー redmine に設定されるパスワードです。
+ダウンロードしたplaybookから `redmine-servers` を開きます。
 
-### playbook実行
-
-下記コマンドを実行してください。Redmineの自動インストールが開始されます。
+redmine-serversは以下のディレクトリにあります。
 
 ```
-cd redmine-centos-ansible
-ansible-playbook -i hosts site.yml
+/root/redmine-centos-ansible/group_vars/redmine-servers
 ```
 
-10〜20分ほどでインストールが完了します。webブラウザで `http://サーバIPアドレス/redmine` にアクセスしてください。Redmineの画面が表示されるはずです。
+**db_passwd_redmine** を適当なパスワードに変更します。
 
+### playbookの実行
 
-## ライセンス
+ディレクトリを移動してplaybookを実行します。
 
-MIT License
+```
+ cd redmine-centos-ansible
+ ansible-playbook -i hosts site.yml
+```
 
+インストールが完了したら、Webブラウザで　` http://< IPアドレス >/redmine ` にアクセスします。
 
-## 作者
-
-[ファーエンドテクノロジー株式会社](http://www.farend.co.jp/)
+あとは、必要に応じて**iptables**でファイアウォールの設定を行ってください。
