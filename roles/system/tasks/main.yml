@@ -1,3 +1,15 @@
+- name: iptables設定ファイルの作成
+  become: yes
+  template:
+   src=iptables
+   dest=/etc/sysconfig/iptables
+
+- name: iptablesの再起動
+  become: yes
+  service:
+   name=iptables
+   state=restarted
+
 - name: 開発ツールのインストール
   become: yes
   yum: name='@Development Tools'
