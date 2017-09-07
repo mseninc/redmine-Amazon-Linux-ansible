@@ -56,7 +56,7 @@ t2.microでインスタンスを作成した場合は、メモリが1GBと多く
 redmine-serversは以下のディレクトリにあります。
 
 ```
-/root/redmine-centos-ansible/group_vars/redmine-servers
+group_vars/redmine-servers
 ```
 
 **db_passwd_redmine** を適当なパスワードに変更します。
@@ -66,7 +66,7 @@ redmine-serversは以下のディレクトリにあります。
 ディレクトリを移動してplaybookを実行します。
 
 ```
-# cd redmine-centos-ansible
+# cd redmine-amazon-linux-ansible
 # ansible-playbook -i hosts site.yml
 ```
 
@@ -91,4 +91,4 @@ MIT License
 
 ## 謝辞
 
-CenOS用のプレイブックを作ってくださった、[ファーエンドテクノロジー株式会社](http://www.farend.co.jp/)さんに感謝いたします。
+CentOS用のプレイブックを作ってくださった、[ファーエンドテクノロジー株式会社](http://www.farend.co.jp/)さんに感謝いたします。
