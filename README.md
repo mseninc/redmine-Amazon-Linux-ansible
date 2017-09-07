@@ -11,6 +11,9 @@ Ansibleを使ってAmazon Linux にRedmineを構築するプレイブックで�
 
 AWSのEC2に作成されたAmazon Linuxを対象とし、すでにインスタンスの作成が完了していることを想定しています。
 
+EC2インスタンスを作成したあと、**セキュリティグループの設定で インバウンド HTTP(80) を許可**しておいてください。
+
+
 ## インストール手順
 
 rootユーザーに昇格し、以下の手順を実行します。
@@ -52,28 +55,29 @@ git clone https://github.com/mseninc/redmine-amazon-linux-ansible.git
 
 ### PostgreSQLに設定するパスワードの変更
 
-ダウンロードしたplaybookから `redmine-servers` を開きます。
-
-redmine-serversは以下のディレクトリにあります。
+PostgreSQL の接続パスワードを設定するため、ダウンロードしたplaybookから `redmine-servers` を開きます。
 
 ```
-group_vars/redmine-servers
+cd redmine-amazon-linux-ansible
+vi group_vars/redmine-servers
 ```
 
 **db_passwd_redmine** を適当なパスワードに変更します。
 
 ### playbookの実行
 
-ディレクトリを移動してplaybookを実行します。
+playbookを実行します。
 
 ```
-cd redmine-amazon-linux-ansible
 ansible-playbook -i hosts site.yml
 ```
 
 インストールが完了したら、Webブラウザで　`http://< IPアドレス >/redmine` にアクセスします。
 
+このときのIPアドレスはAWSコンソールのインスタンス一覧から確認できる **IPv4 パブリック IP** を使用してください。
+
 あとは、必要に応じて**iptables**でファイアウォールの設定を行ってください。
+
 
 ## オリジナルからの変更点
 
@@ -88,7 +92,7 @@ ansible-playbook -i hosts site.yml
 
 ## ライセンス
 
-MIT License
+[MIT License](LICENSE.md)
 
 ## 謝辞
 
