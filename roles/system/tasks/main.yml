@@ -1,4 +1,4 @@
-- name: iptables設定ファイルの作成
+- name: iptables設定ファイルの配置
   become: yes
   template:
    src=iptables
