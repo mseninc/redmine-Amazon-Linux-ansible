@@ -1,4 +1,4 @@
-- name: upgrade all packages
+- name: yumアップデート
   yum: name=* state=latest
 
 - name: iptables設定ファイルの配置
