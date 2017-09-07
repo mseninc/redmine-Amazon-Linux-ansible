@@ -1,3 +1,6 @@
+- name: upgrade all packages
+  yum: name=* state=latest
+
 - name: iptables設定ファイルの配置
   become: yes
   template:
