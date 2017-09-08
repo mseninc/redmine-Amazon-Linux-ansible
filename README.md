@@ -81,6 +81,7 @@ ansible-playbook -i hosts site.yml
 
 ## オリジナルからの変更点
 
+- yum アップデートの追加
 - SELinux 関連設定の削除 (Amazon Linux には初期状態で SELinux が導入されていないため)
 - Firewalld 関連設定の削除（Firewalldがないため）
 - iptables 設定を追記
